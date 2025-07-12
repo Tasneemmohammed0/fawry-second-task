@@ -78,11 +78,12 @@ public class Main {
     // Buying an Ebook
     try {
       System.out.println("Buying EBook with ISBN6...");
-      Book ebookToPurchase = inventoryService.getBookByIsbn("ISBN6");
+      EBook ebookToPurchase = (EBook) inventoryService.getBookByIsbn("ISBN6");
 
-      ebookToPurchase.processPurchase(
-        paymentService,
-        "example@yahoo.com",
+      paymentService.buyBook(
+        ebookToPurchase.getIsbn(),
+        1,
+        "exampla@yahoo.com",
         "Address 2"
       );
     } catch (Exception e) {
@@ -94,12 +95,15 @@ public class Main {
     // Trying to buy a book that is out of stock
     try {
       System.out.println("Buying PaperBook with ISBN3 (out of stock)...");
-      Book outOfStockBook = inventoryService.getBookByIsbn("ISBN3");
+      PaperBook outOfStockBook = (PaperBook) inventoryService.getBookByIsbn(
+        "ISBN3"
+      );
 
-      outOfStockBook.processPurchase(
-        paymentService,
-        "example2@gmail.com",
-        "Address 3 "
+      paymentService.buyBook(
+        outOfStockBook.getIsbn(),
+        1,
+        "exampla2@yahoo.com",
+        "Address 3"
       );
     } catch (Exception e) {
       System.out.println(
